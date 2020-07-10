@@ -1,0 +1,126 @@
+@import '../../public/reset.scss';
+
+#Home {
+    width: 100%;
+    height: 100%;
+	.header{
+        height: 38px;
+        width: 100%;
+        background-color: #ffffff;
+        font-size: 20px;
+        // box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+	}
+	.content-box{
+		width: 100%;
+		height: calc(100% - 38px);
+		overflow-y: auto;
+	}
+	.Carousel-D{
+		width: vm(710);
+		margin: 0 vm(20) 0 vm(20);
+		height: vm(440);
+		margin-top: vm(10);
+		.Carousel-home{
+			height: vm(440) !important;
+			width: vm(710);
+			.slider-list{
+				height: vm(440) !important;
+				.slider-slide{
+					height: vm(440) !important;
+				}
+			}
+			.slider-decorator-0{
+				bottom: vm(20) !important;
+			}
+		}
+	}
+	.region-title{
+		width: vm(710);
+		font-size: vm(36);
+		height: vm(130);
+		line-height: vm(130);
+		padding: 0 vm(20) 0 vm(20);
+		font-weight: bold;
+	}
+    .policy-content{
+		width: 100%;
+		.policy-item{
+			width: vm(650);
+			margin: vm(20) vm(20) vm(20) vm(20);
+			&:nth-child(1){
+				margin-top: 0;
+			}
+			padding: vm(30);
+			background-color: #ffffff;
+			border-radius: 4px;
+			// height: vm(296);
+			display: flex;
+			justify-content: space-between;
+			.item-left{
+				width: vm(480);
+				.policy-title{
+					font-size: vm(36);
+					font-weight: bold;
+					color: #484848;
+					line-height: vm(50);
+				}
+				.label-content{
+					margin-top: vm(20);
+					.label-item{
+						display: inline-block;
+						padding: vm(8) vm(12) vm(8) vm(12);
+						border: 1px solid #0AA867;
+						border-radius: 4px;
+						color: #0AA867;
+						margin-right: 10px;
+    					margin-bottom: 4px;
+					}
+				}
+			}
+			.item-right{
+				display: flex;
+				align-items: flex-end;
+				flex-wrap: wrap;
+				justify-content: center;
+				flex-direction: column;
+				.money{
+					// width: 100%;
+					font-size: vm(50);
+					color: #0AA867;
+				}
+				.highest{
+					color: #ffffff;
+					width: vm(88);
+					height: vm(40);
+					line-height: vm(40);
+					margin-top: vm(10);
+    				margin-right: vm(20);
+					font-size: vm(26);
+					border-radius: 100px;
+					text-align: center;
+					background-image: linear-gradient(-154deg, #70D280 0%, #3DA770 100%);
+				}
+			}
+		}
+		.getpolicy{
+			height: vm(62);
+			width: 100%;
+			margin-bottom: vm(20);
+			font-size: vm(32);
+			line-height: vm(62);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img{
+				width: vm(32);
+				height: vm(32);
+				margin-right: 3px;
+			}
+		}
+	}
+	.app{
+		margin-top: 50px;
+		width: 100%;
+		height: 10px;
+	}
+}
