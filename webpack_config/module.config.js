@@ -6,17 +6,10 @@ const moduleConfigDev = {
     // noParse:/jquery/,//不去解析jquery中的依赖关系，知道这个包没有依赖项，可以使用noParse来忽略掉
     rules: [
         {
-            test: /\.(js|jsx)$/,
+            test: /\.(js|jsx|ts|tsx)$/,
             exclude: /node_modules/,
             // use:'Happypack/loader?id=js',//多线程打包，用Happypack的loader。js配置id=js，css配置id=css
             loader: "babel-loader",
-        },
-        { 
-            test: /\.(ts|tsx)?$/, 
-            exclude: /node_modules/,
-            use:[
-                "awesome-typescript-loader"
-            ],
         },
         { 
             enforce: "pre", 
@@ -71,17 +64,10 @@ const moduleConfigProd = {
     // noParse:/jquery/,//不去解析jquery中的依赖关系，知道这个包没有依赖项，可以使用noParse来忽略掉
     rules: [
         {
-            test: /\.(js|jsx)$/,
+            test: /\.(js|jsx|ts|tsx)$/,
             exclude: /node_modules/,
             // use:'Happypack/loader?id=js',//多线程打包，用Happypack的loader。js配置id=js，css配置id=css
             loader: "babel-loader",
-        },
-        { 
-            test: /\.(ts|tsx)?$/, 
-            exclude: /node_modules/,
-            use:[
-                "awesome-typescript-loader"
-            ],
         },
         { 
             enforce: "pre", 
