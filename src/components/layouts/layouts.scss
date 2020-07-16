@@ -1,0 +1,64 @@
+#components-layout-demo-responsive .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+#Layouts{
+    height: 100vh;
+    .layouDD {
+        height: 100%;
+        .logo{
+            color: #ffffff;
+            height: 64px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+        .layoutCD{
+            .header{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                box-shadow: 3px 3px 10px rgba(204, 204, 204, 0.3);
+                .header_d{
+                    height: 100%;
+                    width: 100%;
+                    position: relative;
+                    .userInfo{
+                        position: absolute;
+                        right: 100px;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        .signout{
+                            width: 28px;
+                            height: 28px;
+                            cursor: pointer;
+                            margin-left: 20px;
+                        }
+                    }
+                }
+            }
+            .layoutContent{
+                padding: 20px 20px 0 20px;
+                margin-bottom: 20px;
+                overflow: auto;
+                // display: flex;
+                .contentMain{
+                    padding: 24px;
+                    margin: 24px  16px;
+                    // margin: 24px 0px 24px 16px;
+                    // margin: 24px 16px 50px 16px;
+                    background-color: #ffffff;
+                    display: flex;
+                    flex: 1;
+                    overflow: auto;
+                    // overflow-y:scroll
+                }
+                
+            }
+        }
+    }
+}

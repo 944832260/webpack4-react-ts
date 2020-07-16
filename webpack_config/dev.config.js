@@ -4,6 +4,6 @@ const proxy = [
 
 module.exports = {
 	ip: "0.0.0.0",
-	port: 8002,
+	port: 3008,
 	proxy
 };

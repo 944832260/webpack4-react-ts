@@ -1,22 +1,15 @@
-interface Types {
-  type: "CLEAR_USER" | "UPDATE_USER";
-}
-
-
 // 更新数据
-export function UpdateUSER(obj:object){
-  let action: Types = {
+export const UpdateUSER = (obj: any) => {
+  return {
     type: "UPDATE_USER",
     ...obj
-  };
-  return action;
+  }
 }
 
 // 清空数据
-export function ClearUSER(){
-  let action: Types = {
+export const ClearUSER = (obj: any) => {
+  return {
     type: "CLEAR_USER",
-  };
-  return action;
+    ...obj
+  }
 }
-

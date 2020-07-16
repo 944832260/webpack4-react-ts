@@ -8,7 +8,8 @@ const history = createBrowserHistory();
 import createStore from '@store/index'
 const store = createStore();
 import 'antd/dist/antd.css';
-
+import '@public/reset.scss';
+import '@http'
 
 // // 配置热更新
 declare var module:any;

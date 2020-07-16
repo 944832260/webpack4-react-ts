@@ -6,7 +6,8 @@ import {USERState} from "@store/reducers/user"
 export interface RouteProps {
   history: History;
   location: Location;
-  match: match;
+  match: any;
+  route: any;
   dispatch?: Dispatch;
   UpdateUSER?: (obj: USERState) => USERState;
   ClearUSER?: () => object;

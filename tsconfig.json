@@ -19,7 +19,7 @@
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
       "@public/*": ["public/*"],
-      "@http/*": ["http/*"],
+      "@http/*": ["http_request/*"],
       "@router/*": ["router/*"],
       "@store/*": ["store/*"],
       "@pages/*": ["pages/*"],
