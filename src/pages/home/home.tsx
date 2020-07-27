@@ -7,7 +7,7 @@ import { Button } from 'antd';
 interface State {
 }
 class Home extends Component<RouteProps, State>  {
-	state = {
+	state:State = {
 	}
 
 	render() {

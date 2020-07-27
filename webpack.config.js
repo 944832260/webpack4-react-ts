@@ -64,6 +64,7 @@ module.exports = {
             new OptimizeCssAssetsPlugin()
         ],
         splitChunks:{//分割代码块
+            chunks:'all',//第三方库单独抽离一个文件
             cacheGroups:{//缓存组
                 common:{//公共的模块
                     chunks:'initial',//从入口处开始

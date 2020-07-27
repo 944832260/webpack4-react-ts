@@ -10,7 +10,7 @@ interface State {
 	password:string
 }
 class Login extends Component<RouteProps, State> {
-	state = {
+	state:State = {
 		username:'',
 		password:'',
 	}

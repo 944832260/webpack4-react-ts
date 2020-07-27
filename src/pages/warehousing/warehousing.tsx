@@ -14,7 +14,7 @@ interface State {
     total:number;
 }
 class Warehousing extends Component<RouteProps, State>  {
-    state = {
+    state:State = {
         columns: [
             {
                 title: '入库单号',

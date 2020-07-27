@@ -19,7 +19,7 @@ interface State {
     name:string,
 }
 class Layouts extends Component<RouteProps, State>  {
-	state = {
+	state:State = {
 		collapsed: false,//菜单收缩
         openKeys: ['/home'],//当前展开的 SubMenu 菜单项 key 数组
         rootSubmenuKeys: [],//menu所有有子菜单的key
