@@ -4,12 +4,14 @@
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
-    background-image: radial-gradient(#69b1f3 20%,  rgb(12,125,222) 80%); 
+    // background-image: radial-gradient(#69b1f3 20%,  rgb(12,125,222) 80%); 
+    background-image: url('https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg');
     .box{
         height: 300px;
         width: 300px;
         h1{
-            color: #ffffff;
+            // color: #ffffff;
+            color: #333333;
             text-align: center;
             width: 100%;
             margin-bottom: 40px;
@@ -26,7 +28,7 @@
                 text-align: justify;
                 text-align-last: justify;
                 margin-right: 12px;
-                color: #ffffff;
+                color: #333333;
             }
             .input{
                 border-radius: 6px;
