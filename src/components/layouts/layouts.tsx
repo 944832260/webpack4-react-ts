@@ -83,6 +83,12 @@ class Layouts extends Component<RouteProps, State>  {
             });
         }
     };
+    // 当前选中的菜单
+    menuChange = (ev: any) =>{
+        let currentMenu:any[]
+        currentMenu = ev.selectedKeys
+        this.setState({currentMenu})
+    }
     // 左侧边栏展开收起
     toggle = () => {
         this.setState({
@@ -108,11 +114,12 @@ class Layouts extends Component<RouteProps, State>  {
                         <div className="logo" >LOGO</div>
                         <Menu
                             className='icons'
-                            defaultSelectedKeys={currentMenu}
+                            selectedKeys={currentMenu}
                             mode="inline"
                             theme="dark"
                             openKeys={this.state.openKeys}
                             onOpenChange={this.onOpenChange}
+                            onSelect={(ev)=>{this.menuChange(ev)}}
                         >
                             {
                                 Navconfig.map((e, i) => {
