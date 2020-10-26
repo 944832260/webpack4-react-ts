@@ -1,7 +1,7 @@
 import { lazy, LazyExoticComponent } from 'react'
 import Layouts from '@components/layouts/layouts'
 import Home from '@pages/home/home'
-import Warehousing from '@pages/warehousing/warehousing'
+import Table from '@pages/table/table'
 
 export interface RouteObj {
 	path: string;
@@ -23,19 +23,16 @@ const Config: Routes[] = [
 	{
 		path: '/',
 		component: Layouts,
-		// component: lazy(() => import("@components/layouts/layouts")),
 		name: '登录',
 		routes: [{
 			path: '/home',
 			component: Home,
-			// component: lazy(() => import("@pages/home/home")),
 			exact: true,
 			name: '首页',
 		}, 
 		{
 			path: '/warehousing',
-			component: Warehousing,
-			// component: lazy(() => import("@pages/warehousing/warehousing")),
+			component: Table,
 			exact: true,
 			name: 'table',
 		}, 
