@@ -26,8 +26,12 @@ const navconfig:NavObj[] = [
         // icon:<HomeOutlined />,
     },
     {
-        path:'/warehousing',
+        path:'/table',
         name:'table',
+    },
+    {
+        path:'/form',
+        name:'form',
     },
     // {
     //     path:'/a',

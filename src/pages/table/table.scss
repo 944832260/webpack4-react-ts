@@ -1,0 +1,37 @@
+#table{
+    width: 100%;
+    min-height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    .Warehousing-table{
+        .ant-table-cell{
+            .operation{
+                span{
+                    color: #1890ff;
+                    cursor: pointer;
+                    &:hover{
+                        color: #49a7ff;
+                    }
+                }
+            }
+        }
+    }
+    .entryNo{
+        width: 120px !important;
+    }
+    .vendorName{
+        width: 300px !important;
+    }
+    .opName{
+        width: 300px !important;
+    }
+    .operation{
+        position: sticky; 
+        right: 0px;
+    }
+    .page{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}

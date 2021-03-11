@@ -1,7 +1,5 @@
-import { lazy, LazyExoticComponent } from 'react'
-import Layouts from '@components/layouts/layouts'
-import Home from '@pages/home/home'
-import Table from '@pages/table/table'
+import { LazyExoticComponent } from 'react';
+import Loadable from 'react-loadable';
 
 export interface RouteObj {
 	path: string;
@@ -10,32 +8,44 @@ export interface RouteObj {
 	component: LazyExoticComponent<any>;
 	exact?: boolean;
 }
+
 interface Routes extends RouteObj {
 	routes?: RouteObj[];
 }
+
+const MyLoadingComponent = ({ isLoading, error }) => {
+	return null
+}
+
 const Config: Routes[] = [
 	{
 		path: '/login',
-		component: lazy(() => import("@pages/login/login")),
+		component: Loadable({ loader: () => import('@pages/login/login'), loading: MyLoadingComponent }),
 		exact: true,
 		name: '登录',
 	},
 	{
 		path: '/',
-		component: Layouts,
+		component: Loadable({ loader: () => import('@components/layouts/layouts'), loading: MyLoadingComponent }),
 		name: '登录',
 		routes: [{
 			path: '/home',
-			component: Home,
+			component: Loadable({ loader: () => import('@pages/home/home'), loading: MyLoadingComponent }),
 			exact: true,
 			name: '首页',
-		}, 
+		},
 		{
-			path: '/warehousing',
-			component: Table,
+			path: '/table',
+			component: Loadable({ loader: () => import('@pages/table/table'), loading: MyLoadingComponent }),
 			exact: true,
 			name: 'table',
-		}, 
+		},
+		{
+			path: '/form',
+			component: Loadable({ loader: () => import('@pages/form/form'), loading: MyLoadingComponent }),
+			exact: true,
+			name: 'form',
+		},
 		]
 	},
 ];

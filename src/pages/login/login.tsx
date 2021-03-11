@@ -1,8 +1,6 @@
 import  React,{Component} from "react";
-import { connect } from 'react-redux'
 import {RouteProps} from "@public/interface";
 import { Button, Input, message } from 'antd';
-import axios from 'axios';
 import "./login.scss";
 
 interface State {
