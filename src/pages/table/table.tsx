@@ -3,6 +3,7 @@ import { RouteProps } from "@public/interface";
 import "./table.scss";
 import { Button, Table, Pagination, Select, Form, Input, Checkbox } from 'antd';
 import { ColumnsType } from "antd/lib/table";
+import moment from "moment";
 const { Option } = Select;
 
 
@@ -30,10 +31,31 @@ class table extends Component<RouteProps, State>  {
                 title: '品类名称',
                 dataIndex: 'name',
                 fixed: true,
+                filters: [
+                    {
+                        value: 0,
+                        text: '待支付',
+                    }, {
+                        value: 10,
+                        text: '指令已发送',
+                    }, {
+                        value: 20,
+                        text: '支付成功',
+                    }, {
+                        value: 30,
+                        text: '支付失败',
+                    }, {
+                        value: 90,
+                        text: '支付取消',
+                    },
+                ],//表头筛选
             },
             {
                 title: '总重（吨）',
                 dataIndex: 'tie',
+                sorter: (a: any, b: any) => {
+                    return moment(a.requestTime).valueOf() - moment(b.requestTime).valueOf()
+                },//表头排序
             },
             {
                 title: '总价（元）',
@@ -126,7 +148,7 @@ class table extends Component<RouteProps, State>  {
                         name="username"
                         className='func_item'
                     >
-                        <Input  style={{ width: 100 }} />
+                        <Input style={{ width: 100 }} />
                     </Form.Item>
 
                     <Form.Item
@@ -134,7 +156,7 @@ class table extends Component<RouteProps, State>  {
                         name="password"
                         className='func_item'
                     >
-                        <Input  style={{ width: 100 }} />
+                        <Input style={{ width: 100 }} />
                     </Form.Item>
 
                     <Form.Item
@@ -146,7 +168,7 @@ class table extends Component<RouteProps, State>  {
                     </Form.Item>
 
                     <Form.Item
-                        style={{width:200,}}
+                        style={{ width: 200, }}
                         className='func_item'
                     >
                         <Button style={{ width: 100 }} type="primary" htmlType="submit">submit</Button>
