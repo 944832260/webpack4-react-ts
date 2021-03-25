@@ -46,6 +46,12 @@ const Config: Routes[] = [
 			exact: true,
 			name: 'form',
 		},
+		{
+			path: '/orgframe',
+			component: Loadable({ loader: () => import('@pages/orgframe/orgframe'), loading: MyLoadingComponent }),
+			exact: true,
+			name: 'orgframe',
+		},
 		]
 	},
 ];

@@ -33,6 +33,10 @@ const navconfig:NavObj[] = [
         path:'/form',
         name:'form',
     },
+    {
+        path:'/orgframe',
+        name:'组织架构图',
+    },
     // {
     //     path:'/a',
     //     name:'入库单管理',
