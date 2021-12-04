@@ -3,5 +3,5 @@
 .DS_Store
 *.DS_Store
 /.vscode
-/front
+/build
 /npm-debug.log

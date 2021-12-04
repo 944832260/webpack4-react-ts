@@ -1,26 +1,26 @@
 
-const path = require('path')
+const path = require('path');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require("terser-webpack-plugin");
 const { MODE } = process.env;
-let IsDevelopment = MODE === 'development';//development是true,不是开发false
-console.log(MODE, 'MODE------>')
-const Config = require('./webpack_config/dev.config')
-const moduleConfig = require('./webpack_config/module.config')
-const pluginsConfig = require('./webpack_config/plugins.config')
+//development是true,不是开发false
+let IsDevelopment = MODE === 'development';
+console.log(MODE, 'MODE------>');
+const Config = require('./webpack_config/dev.config');
+const moduleConfig = require('./webpack_config/module.config');
+const pluginsConfig = require('./webpack_config/plugins.config');
 
 module.exports = {
     mode: MODE,
-    devtool: IsDevelopment ? 'source-map' : 'cheap-module-source-map',//增加映射文件，可以帮我们调试源码，出错了会报出错的列和行
+    devtool: IsDevelopment ? 'source-map' : 'cheap-module-source-map',
     entry: {
         index: './src/index.tsx',
-        // login:'./login.js',
     },  // 入口文件,多入口配置
     output: {
         filename: IsDevelopment ? 'js/[name].js' : 'js/[name][hash:8].min.js',
-        path: path.resolve(__dirname, "front"),
+        path: path.resolve(__dirname, "build"),
         chunkFilename: "js/[name].[hash:8].js",
-        publicPath: '/',//公共路径，每个文件引入前都会加./
+        publicPath: '/',
     },  // 打包出口文件
     resolve: {
         extensions: [".ts", ".tsx", ".js", "jsx", ".json"],//从左向右找，添加后缀
@@ -32,6 +32,7 @@ module.exports = {
             '@public': path.resolve(__dirname, "src/public"),
             '@router': path.resolve(__dirname, "src/router"),
             '@store': path.resolve(__dirname, "src/store"),
+            '@example': path.resolve(__dirname, "src/example"),
         }
     },
     module: moduleConfig,    // 处理对应模块
@@ -44,49 +45,77 @@ module.exports = {
                 context: item.path,
                 target: item.target,
                 changeOrigin: true,
-                secure: false
+                secure: false,
+                pathRewrite: item.isDevelop ? { '^/tower-logistic': '' } : null,//请求时替换掉api
             }
         )),
-        contentBase: path.join(__dirname, 'front'), //服务器根路径
-        compress: true, // 服务端压缩
+        contentBase: path.join(__dirname, 'build'), //服务器根路径
+        compress: true,
         disableHostCheck: IsDevelopment ? true : false,
         hot: true,
-        // inline: false,
-        historyApiFallback: true,//不添加这个路由刷新会没页面
-    },  // 开发服务器配置
-    optimization: {//优化项
-        minimizer: [//压缩的
-            new UglifyJsPlugin({
-                uglifyOptions: IsDevelopment ? {} : {
-                    compress: {
-                        warnings: false,
-                        drop_debugger: true, //debugger
-                        drop_console: true,// console
-                        pure_funcs: ['console.log'] // 移除console
-                    },
-                },
-                cache: true,
+        historyApiFallback: true,
+    },
+    performance: {
+        hints: false
+    },
+    optimization: {
+        // minimize:true,
+        minimizer: [
+            new TerserPlugin({
                 parallel: true,
-                sourceMap: IsDevelopment ? true : false,
             }),
-            new OptimizeCssAssetsPlugin()
+            // new UglifyJsPlugin({
+            //     uglifyOptions: IsDevelopment ? {} : {
+            //         compress: {
+            //             warnings: false,
+            //             drop_debugger: true, //debugger
+            //             drop_console: true,// console
+            //             pure_funcs: ['console.log'] // 移除console
+            //         },
+            //     },
+            //     cache: true,
+            //     parallel: true,
+            //     sourceMap: IsDevelopment ? true : false,
+            // }),
+            new OptimizeCssAssetsPlugin(),
         ],
-        splitChunks: {//分割代码块
-            chunks: 'all',//第三方库单独抽离一个文件
-            cacheGroups: {//缓存组
-                common: {//公共的模块
-                    chunks: 'initial',//从入口处开始
-                    minSize: 0,
-                    minChunks: 2,//只要引用2次以上就抽离
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                rcRelevant: {
+                    name: 'rc-relevant',
+                    test: /[\\/]node_modules[\\/](@ant-design|rc-table|rc-picker|rc-select|rc-util|rc-menu|rc-tree|rc-pagination|rc-image|rc-virtual-list|rc-textarea|rc-trigger)[\\/]/,
+                    chunks: 'all',
+                    priority: 4,
+                },
+                antd: {
+                    name: 'antd',
+                    test: /[\\/]node_modules[\\/]antd[\\/]/,
+                    chunks: 'all',
+                    priority: 3,
                 },
                 vendor: {
-                    priority: 1,//提高权重，先把第三方模块抽离出来，在去抽离公共代码（common），如果不设置的话，common抽离完了，就不再执行vendor抽离。
-                    test: /node_modules/,//把你抽离出来
-                    chunks: 'initial',//从入口处开始
+                    name: 'vendor',
+                    priority: 2,
+                    test: /node_modules/,
+                    // test: /[\\/]node_modules[\\/](react|react-dom|moment|react-document-title|bind-decorator)[\\/]/,
+                    chunks: 'all',
                     minSize: 0,
-                    minChunks: 2,//只要引用2次以上就抽离
-                }
+                    minChunks: 2,
+                },
+                common: {
+                    name: 'common',
+                    priority: 1,
+                    test: /src/,
+                    chunks: 'all',
+                    minSize: 0,
+                    minChunks: 2,
+                },
             }
+        },
+        // 为 webpack 运行时代码创建单独的chunk
+        runtimeChunk: {
+            name: 'manifest',
         }
     }
-}
+};

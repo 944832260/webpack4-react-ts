@@ -3,34 +3,69 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackBar = require("webpackbar");
 const pluginsConfig = [
 	new HtmlWebpackPlugin({
-		filename:'index.html',
+		filename: 'index.html',
 		template: './index.html',
-		hash:false,
-		minify:{
-		  removeAttributeQuotes:process.env.MODE == 'production'?true:false,//删除html的双引号
-		  collapseWhitespace:process.env.MODE == 'production'?true:false,//折叠成一行
-		},//html压缩
+		hash: process.env.MODE === 'production' ? true : false,
+		// favicon: path.resolve(__dirname, '../src/assets/icons/favicon.ico'),
+		minify: process.env.MODE === 'production' ? {
+			removeAttributeQuotes: true,
+			collapseWhitespace: true,
+		} : false,
 	}),
 	new MiniCssExtractPlugin({
-		filename: 'css/[name][hash:8].css',
-		chunkFilename: 'css/[id].css',
-		// ignoreOrder: false, 
+		filename: process.env.MODE == 'production' ? 'css/[name][hash:8].css' : 'css/[name].css',
+		chunkFilename: process.env.MODE == 'production' ? 'css/[id][hash:8].css' : 'css/[id].css',
 	}),
-	new webpack.NamedModulesPlugin(),//打印更新的模块路径
-	new webpack.HotModuleReplacementPlugin(),//热更新插件
-	
-	// new CopyWebpackPlugin([
-	//     {from:'./src/lib',to:'lib'}//输出目录默认是打包目录
-	// ]),
-]
+	new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+	new webpack.NamedModulesPlugin(),
+	new webpack.HotModuleReplacementPlugin(),
+	new WebpackBar(),
+];
 if (process.env.MODE == 'production') {
 	pluginsConfig.push(
-		new CleanWebpackPlugin()//清除的就是打包的目录
+		new CleanWebpackPlugin(),
 	)
-	console.log('CleanWebpackPlugin---[清除dist目录]------------>')
+	if (process.env.BUILD === 'dev') {
+		pluginsConfig.push(
+			new webpack.DefinePlugin({
+				BUILD_MODE: JSON.stringify('build_dev'),
+			})
+		)
+		console.log('DefinePlugin---------[测试注入全局变量build_dev]---------->');
+	} else if (process.env.BUILD === 'test') {
+		pluginsConfig.push(
+			new webpack.DefinePlugin({
+				BUILD_MODE: JSON.stringify('build_test'),
+			})
+		)
+		console.log('DefinePlugin---------[测试注入全局变量build_test]--------->');
+	}else if (process.env.BUILD === 'prod') {
+		pluginsConfig.push(
+			new webpack.DefinePlugin({
+				BUILD_MODE: JSON.stringify('build_prod'),
+			})
+		)
+		console.log('DefinePlugin---------[生产注入全局变量build_prod]--------->');
+	}
+	if (process.env.AY == 'true') {
+		const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+		pluginsConfig.push(
+			new BundleAnalyzerPlugin(),
+		)
+		console.log('pluginsConfig--------[模块分析]---------------->');
+	}
+	console.log('CleanWebpackPlugin---[清除dist目录]----------------------->');
+} else {
+	pluginsConfig.push(
+		new webpack.DefinePlugin({
+			BUILD_MODE: JSON.stringify('dev'),
+		})
+	)
+	console.log('DefinePlugin--------[开发注入全局变量dev]--------->');
 }
 module.exports = pluginsConfig;
 
-console.log('pluginsConfig--------[导出插件]---------------->')
+console.log('pluginsConfig--------[导出插件]--------------------------->');
